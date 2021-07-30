@@ -15,6 +15,8 @@ const validarJWT = (req, res = response, next) => {
     try {
         const { uid } = jwt.verify(token, process.env.JWT_KEY);
         req.uid = uid;
+
+        next();
         
     } catch (error) {
         return res.status(401).json({
@@ -22,8 +24,6 @@ const validarJWT = (req, res = response, next) => {
             msg: 'Token no válido'
         });
     }
-
-    next();
 }
 
 module.exports = {
